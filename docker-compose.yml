@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    networks:
+      - mainnet
+    volumes:
+      - logs:/opt/logs
+      - statics:/opt/django-project/static
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - statics:/usr/share/nginx/djangodocker/static
+    ports:
+      - "8088:80"
+    networks:
+      - mainnet
+    depends_on:
+      - app
+volumes:
+  statics:
+  logs:
+
+networks:
+  mainnet:
+
+# docker-compose up -d --build
