@@ -1,4 +1,5 @@
-FROM python:3.9-buster as base
+ARG python_version=3.8
+FROM python:$python_version-buster as base
 
 FROM gitlab/gitlab-runner:alpine as the-files
 RUN mkdir /install
@@ -11,7 +12,7 @@ WORKDIR /install
 ARG requirements=requirements.txt
 ARG requirements_theme=bs4.txt
 COPY --from=the-files /install/djk-sample/$requirements /install
-COPY --from=the-files /install/djk-sample/requirements/$requirements_theme /install
+COPY --from=the-files /install/djk-sample/$requirements_theme /install
 RUN pip install --prefix=/install -r $requirements
 RUN pip install --prefix=/install -r $requirements_theme
 

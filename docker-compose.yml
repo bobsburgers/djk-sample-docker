@@ -9,6 +9,9 @@ services:
     volumes:
       - logs:/opt/logs
       - statics:/opt/django-project/static
+    # environment:
+      # - requirements_theme=bs3.txt
+      # - python_version=3.9
   nginx:
     image: nginx
     volumes:
